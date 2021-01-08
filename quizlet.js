@@ -1,29 +1,26 @@
 let terms = [];
 let definitions = [];
-let q = '';
-let autoClick = localStorage.getItem("autoClick");
-let color = localStorage.getItem("color");
-let menu = localStorage.getItem("menu");
+let qs = '';
+let autoClick = false;
+let color = true;
+let menu = true;
 
 document.addEventListener('keydown', function(event) {
   if (event.code == 'Enter') {
     Turn_on_hack();
     showStatus();
   }
-  if (event.code == 'KeyX' && (event.ctrlKey || event.metaKey)) {
+  if (event.code == 'KeyX') {
     autoClick = !autoClick;
-    localStorage.setItem("autoClick", autoClick);
     showStatus();
   }
-  if (event.code == 'KeyZ' && (event.ctrlKey || event.metaKey)) {
+  if (event.code == 'KeyZ') {
     color = !color;
-    localStorage.setItem("color", color);
     getCorrect();
     showStatus();
   }
   if (event.code == 'KeyC') {
   	menu = !menu;
-  	localStorage.setItem("menu", menu);
   	if (menu) {
   		$('#menu').css('display','block');
   	} else {
@@ -116,15 +113,15 @@ function parseQuestions() {
     terms.push(q[qKeys[x]].word);
     definitions.push(q[qKeys[x]].definition);
   }
-  setInterval(waitForChange, 50);
+  setInterval(waitForChange, 100);
   showStatus();
 }
 
 function waitForChange(){
 	let cQ = $(".FormattedText.notranslate.StudentPrompt-text div").text();
-	if (window.q != cQ) {
+	if (qs != cQ) {
 		getCorrect();
-		window.q = cQ;
+		qs = cQ;
 	}
 }
 
@@ -149,14 +146,18 @@ function getCorrect() {
     terms = definitions
     definitions = termsQ
   }
-  int = txt.indexOf(definitions[terms.indexOf(currentQ)]);
+  let int = txt.indexOf(definitions[terms.indexOf(currentQ)]);
   for(let x=0;x<answers.length;x++) {
 	changeColor(x,'red');
   }
   try {
-	changeColor(int,'lime');
-    if (autoClick) {
-    	$(".StudentAnswerOptions .StudentAnswerOptions-optionCard .FormattedText:eq("+int+")").click();
+    if (int != -1) {
+      changeColor(int,'lime');
+      if (autoClick) {
+        $(".StudentAnswerOptions .StudentAnswerOptions-optionCard .FormattedText:eq("+int+")").click();
+      }
     }
-  }catch(err){getCorrect();}
+  }catch(err){
+    getCorrect();
+  }
 }
