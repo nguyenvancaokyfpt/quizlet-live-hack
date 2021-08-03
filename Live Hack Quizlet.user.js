@@ -22,7 +22,7 @@ appendMenu();
 appendFunc();
 
 function appendMenu(){
-        var divBlock = `<div style="z-index: 99999;position: absolute;right: 8px;bottom: 8px;width: 230px;height: 35px;background-color: #d9dde8;border-radius: 6px;" id="menu"><p style=" font-size: 13px; color: rebeccapurple; padding: 8px 10px; text-align: center; " id="log"></p></div>`;
+        var divBlock = `<div style="z-index: 99999;position: absolute;right: 8px;bottom: 8px;width: 230px;height: 35px;background-color: #d9dde8;border-radius: 6px;" id="menu"><p style=" font-size: 13px; color: rebeccapurple; padding: 8px 10px; text-align: center; " id="log">Hack by <a href="https://www.facebook.com/NguyenVanCaoKy" style="text-decoration: none">Nguyễn Văn Cao Kỳ</a></p></div>`;
         $("body").append(divBlock);
 }
 function appendFunc(){
